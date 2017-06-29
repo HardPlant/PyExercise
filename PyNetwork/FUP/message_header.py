@@ -3,6 +3,10 @@ import struct
 
 class Header(ISerializable):
     def __init__(self, buffer):
+        """
+        unpack message and parse header.
+        :param buffer: packed byte
+        """
         self.struct_fmt = '=3I2BH' # 3 unsigned int, 2 byte, 1 unsigned short
         self.struct_len = struct.calcsize(self.struct_fmt)
 
@@ -17,6 +21,9 @@ class Header(ISerializable):
             self.SEQ = unpacked[5]
 
     def GetBytes(self):
+        """
+        :return: packed message
+        """
         return struck.pack(
             self.struct_fmt,
             *(
