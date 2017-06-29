@@ -13,24 +13,8 @@ class MessageUtil:
         sent = 0
         buffer = msg.GetBytes()
         while sent < msg.GetSize():
-            sent += sock.send(buff)
-
-    def recvFromBuffer(bufferSize):    
-        totalRecv = 0
-        sizeToRead = bufferSize
-        hBuffer = bytes() #buffer to recv()
-
-        #read header
-        while sizeToRead > 0:
-            buffer = sock.recv(sizeToRead)
-            if not buffer:
-                return None
-            hBuffer += buffer
-            totalRecv += len(buffer)
-            sizeToRead -= len(buffer)
-
-        return hBuffer
-        
+            sent += sock.send(buffer)
+    @staticmethod
     def getBodyType(header, bBuffer):
         if header.MSGTYPE == message.REQ_FILE_SEND:
             body = BodyRequest(bBuffer)
@@ -46,10 +30,10 @@ class MessageUtil:
     
     @staticmethod
     def receive(sock):
-        hBuffer = recvFromBuffer(16)
+        hBuffer = MessageUtil.recvFromBuffer(sock, 16)
         header = Header(hBuffer)
-
-        bBuffer = recvFromBuffer(header.BODYLEN)
+        print(dir(header))
+        bBuffer = MessageUtil.recvFromBuffer(sock, header.BODYLEN)
         body = getBodyType(header, bBuffer)
 
         msg = Message()

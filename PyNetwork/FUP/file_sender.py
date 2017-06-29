@@ -4,6 +4,8 @@ import socket
 import socketserver
 import struct
 
+import message
+
 from message import Message
 from message_header import Header
 from message_body import BodyRequest
@@ -36,9 +38,10 @@ if __name__ == '__main__':
 
         reqMsg = Message()
         filesize = os.path.getsize(filepath)
+        print(filepath)
         reqMsg.Body = BodyRequest(None)
         reqMsg.Body.FILESIZE = filesize
-        reqMsg.Body.FILENAME = filepath[filepath.rindex('\\'+1):]
+        reqMsg.Body.FILENAME = filepath[filepath.rindex('\\')+1:]
 
         msgId += 1
         reqMsg.Header = Header(None)
@@ -46,9 +49,8 @@ if __name__ == '__main__':
         reqMsg.Header.MSGTYPE = message.REQ_FILE_SEND
         reqMsg.Header.BODYLEN = reqMsg.Body.GetSize()
         reqMsg.Header.FRAGMENTED = message.NOT_FRAGMENTED
-        reqMsg.Header.LASTMSG = mesage.LASTMSG
+        reqMsg.Header.LASTMSG = message.LASTMSG
         reqMsg.Header.SEQ = 0
-
         MessageUtil.send(sock, reqMsg)
         rspMsg = MessageUtil.receive(sock)
 
@@ -101,9 +103,6 @@ if __name__ == '__main__':
         result = rstMsg.Body
         print("File transfer successed : {0}".format(result.RESULT == message.SUCCESS))
 
-    except Exception as err:
-        print("Exception occured")
-        print(err)
 
     finally:
         sock.close()

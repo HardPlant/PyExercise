@@ -20,7 +20,7 @@ class ISerializble: # Data-> Byte Array, len(ByteArray)
     """
     def GetBytes(self):
         pass
-    def GetSize():
+    def GetSize(self):
         pass
 
 class Message(ISerializble):

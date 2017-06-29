@@ -4,6 +4,7 @@ import socket
 import socketserver
 import struct
 
+import message
 from message import Message
 from message_header import Header
 from message_body import BodyRequest
@@ -136,7 +137,7 @@ if __name__ == '__main__':
         sys.exit(0)
     
     upload_dir = sys.argv[1]
-    if os.path.isdir(upload_dir == False):
+    if os.path.isdir(upload_dir) == False:
         os.mkdir(upload_dir)
 
     bindPort = 5425
