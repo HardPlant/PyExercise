@@ -69,7 +69,7 @@ class FileReceiveHandler(socketserver.BaseRequestHandler):
         fileSize = reqMsg.Body.FILESIZE
         fileName = reqMsg.Body.FILENAME
         recvFileSize = 0
-        with open(ipload_dir + "\\" + fileName, 'wb') as file:
+        with open(upload_dir + "\\" + fileName, 'wb') as file:
             dataMsgId = -1
             prevSeq = 0
 
@@ -100,7 +100,6 @@ class FileReceiveHandler(socketserver.BaseRequestHandler):
                 if reqMsg.Header.LASTMSG == message.LASTMSG:
                     break
 
-            file.close()
 
         print()
         print("Received File size : {0} bytes".format(recvFileSize))

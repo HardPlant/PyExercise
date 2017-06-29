@@ -38,7 +38,10 @@ if __name__ == '__main__':
 
         reqMsg = Message()
         filesize = os.path.getsize(filepath)
-        print(filepath)
+        if(filesize==0):
+            print("파일 크기가 0입니다.")
+            raise Exception
+
         reqMsg.Body = BodyRequest(None)
         reqMsg.Body.FILESIZE = filesize
         reqMsg.Body.FILENAME = filepath[filepath.rindex('\\')+1:]
@@ -57,7 +60,7 @@ if __name__ == '__main__':
         if rspMsg.Header.MSGTYPE != message.REP_FILE_SEND:
             print("Invalid response.{0}".format(rspMsg.Header.MSGTYPE))
             exit(0)
-
+        
         if rspMsg.Body.RESPONSE == message.DENIED:
             print("Denied from server.")
             exit(0)
@@ -71,7 +74,10 @@ if __name__ == '__main__':
                 fragmented = message.FRAGMENTED
             
             while totalRead < filesize:
+                print("sender78:loop")
+                #0byte에서 무한루프 발생
                 rbytes = file.read(CHUNK_SIZE)
+                
                 totalRead += len(rbytes)
 
                 fileMsg = Message()
@@ -93,7 +99,7 @@ if __name__ == '__main__':
                 fileMsg.Header = header
                 print('#', end='')
 
-                MessageUtil.send(sock.fileMsg)
+                MessageUtil.send(sock,fileMsg)
 
             print()
 

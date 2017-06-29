@@ -29,19 +29,22 @@ class MessageUtil:
             hBuffer += buffer
             totalRecv += len(buffer)
             sizeToRead -= len(buffer)
-        print("hBuffer : {0}".format(hBuffer))
         return hBuffer
     
     @staticmethod
     def getBodyType(header, bBuffer):
         if header.MSGTYPE == message.REQ_FILE_SEND:
-            body = BodyRequest(bBuffer)
+            print("BodyRequest")
+            return BodyRequest(bBuffer)
         elif header.MSGTYPE == message.REP_FILE_SEND:
-            body = BodyResponse(bBuffer)
+            print("BodyResponse")
+            return BodyResponse(bBuffer)
         elif header.MSGTYPE == message.FILE_SEND_DATA:
-            body = BodyData(bBuffer)
+            print("BodyData")
+            return BodyData(bBuffer)
         elif header.MSGTYPE == message.FILE_SEND_RES:
-            body = BodyResult(bBuffer)
+            print("BodyResult")
+            return BodyResult(bBuffer)
         else:
             raise Exception("Unknown MSGTYPE : {0}".
             format(header.MSGTYPE))
@@ -56,5 +59,4 @@ class MessageUtil:
         msg = Message()
         msg.Header = header
         msg.Body = body
-
         return msg
