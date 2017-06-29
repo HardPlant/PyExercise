@@ -78,6 +78,18 @@ class BodyResponse(ISerializable):
 
 class BodyData(ISerializable):
     def __init__(self, buffer):
+        if buffer != None:
+            self.DATA = buffer
+            
+    def GetBytes(self):
+        return self.DATA
+
+    def GetSize(self):
+        return len(self.DATA)
+
+
+class BodyResponse(ISerializable):
+    def __init__(self, buffer):
         #1 uint, 1Byte
         self.struct_fmt = '=IB'
         self.struct_len = struct.calcsize(self.struct_fmt)
