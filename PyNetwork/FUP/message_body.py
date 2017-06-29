@@ -88,7 +88,7 @@ class BodyData(ISerializable):
         return len(self.DATA)
 
 
-class BodyResponse(ISerializable):
+class BodyResult(ISerializable):
     def __init__(self, buffer):
         #1 uint, 1Byte
         self.struct_fmt = '=IB'
@@ -98,18 +98,18 @@ class BodyResponse(ISerializable):
             unpacked = struct.unpack(self.struct_fmt,buffer)
 
             self.MSGID = unpacked[0]
-            self.RESPONSE = unpacked[1]
+            self.RESULT = unpacked[1]
         else:
             #buffer == None
             self.MSGID = 0
-            self.RESPONSE = message.DENIED
+            self.RESULT = message.FAIL
             
     def GetBytes(self):
         return struct.pack(
             self.struct_fmt,
             *(
                 self.MSGID,
-                self.RESPONSE
+                self.RESULT
             )
         )
     def GetSize(self):
