@@ -16,3 +16,19 @@
         - Not last : 0x0
         - Last : 0x1
     * SEQ[2] : Segment Number
+- Body
+    * MSGTYPE 0x01:
+        - FILESIZE[8]
+        - FILENAME[BODYLEN - FILESIZE]
+    * 0x02 :
+        - MSGID[4]
+        - RESPONSE[1]
+            * Deny : 0x0
+            * Accept : 0x1
+    * 0x03 :
+        - DATA[BODYLEN]
+    * 0x04 :
+        - MSGID[4]
+        - RESULT[1]
+            * Failed : 0x0
+            * Success : 0x1
