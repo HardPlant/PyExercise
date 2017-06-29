@@ -1,10 +1,11 @@
 import socket
 import message
-from message import message
-from message_header import BodyRequest
-from message_header import BodyResponse
-from message_header import BodyData
-from message_header import BodyResult
+from message import Message
+from message_header import Header
+from message_body import BodyRequest
+from message_body import BodyResponse
+from message_body import BodyData
+from message_body import BodyResult
 
 class MessageUtil:
     @staticmethod

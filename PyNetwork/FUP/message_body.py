@@ -1,10 +1,10 @@
-from message import ISerializable
+from message import ISerializble
 import message
 import struct
 """
 Request Message(0x00)
 """
-class BodyRequest(ISerializable):
+class BodyRequest(ISerializble):
     def __init__(self, buffer):
         if buffer != None:
             slen = len(buffer)
@@ -21,7 +21,7 @@ class BodyRequest(ISerializable):
             self.FILESIZE = unpacked[0]
             self.FILENAME = unpacked[1].decode(
                 #remove packed 00
-                encoding='utf.8'.replace('\x00'.'')
+                encoding='utf.8'.replace('\x00','')
             )
         else:
             #buffer == None
@@ -49,7 +49,7 @@ class BodyRequest(ISerializable):
         self.struct_len = struct.calcsize(self.struct_fmt)
         return self.struct_len
 
-class BodyResponse(ISerializable):
+class BodyResponse(ISerializble):
     def __init__(self, buffer):
         #1 uint, 1Byte
         self.struct_fmt = '=IB'
@@ -76,7 +76,7 @@ class BodyResponse(ISerializable):
     def GetSize(self):
         return self.struct_len
 
-class BodyData(ISerializable):
+class BodyData(ISerializble):
     def __init__(self, buffer):
         if buffer != None:
             self.DATA = buffer
@@ -88,7 +88,7 @@ class BodyData(ISerializable):
         return len(self.DATA)
 
 
-class BodyResult(ISerializable):
+class BodyResult(ISerializble):
     def __init__(self, buffer):
         #1 uint, 1Byte
         self.struct_fmt = '=IB'

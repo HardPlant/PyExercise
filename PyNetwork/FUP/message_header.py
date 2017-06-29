@@ -1,7 +1,7 @@
-from message import ISerializable
+from message import ISerializble
 import struct
 
-class Header(ISerializable):
+class Header(ISerializble):
     def __init__(self, buffer):
         """
         unpack message and parse header.
