@@ -14,8 +14,10 @@ ACCEPTED = 0x01
 
 FAIL = 0x00
 SUCCESS = 0x01
-
 class ISerializble: # Data-> Byte Array, len(ByteArray)
+    """
+    Serializble Interface
+    """
     def GetBytes(self):
         pass
     def GetSize():
@@ -23,10 +25,16 @@ class ISerializble: # Data-> Byte Array, len(ByteArray)
 
 class Message(ISerializble):
     def __init__(self):
+        """
+        Header and Body also inherits ISerializable
+        """
         self.Header = ISerializble()
         self.Body = ISerializble()
 
     def GetBytes(self):
+        """
+        Get Header + Body Array
+        """
         buffer = bytes(self.GetSize())
         header = self.Header.GetBytes()
         body = self.Body.GetBytes()
