@@ -24,7 +24,7 @@ class Header(ISerializble):
         """
         :return: packed message
         """
-        return struck.pack(
+        return struct.pack(
             self.struct_fmt,
             *(
                 self.MSGID,
@@ -34,5 +34,5 @@ class Header(ISerializble):
                 self.LASTMSG,
                 self.SEQ
             ))
-    def getSize(self):
+    def GetSize(self):
         return self.struct_len

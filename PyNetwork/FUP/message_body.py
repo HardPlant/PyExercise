@@ -21,7 +21,7 @@ class BodyRequest(ISerializble):
             self.FILESIZE = unpacked[0]
             self.FILENAME = unpacked[1].decode(
                 #remove packed 00
-                encoding='utf.8'.replace('\x00','')
+                encoding='utf-8'.replace('\x00','')
             )
         else:
             #buffer == None

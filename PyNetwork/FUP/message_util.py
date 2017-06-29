@@ -50,9 +50,8 @@ class MessageUtil:
     def receive(sock):
         hBuffer = MessageUtil.recvFromBuffer(sock, 16)
         header = Header(hBuffer)
-        print(dir(header))
         bBuffer = MessageUtil.recvFromBuffer(sock, header.BODYLEN)
-        body = getBodyType(header, bBuffer)
+        body = MessageUtil.getBodyType(header, bBuffer)
 
         msg = Message()
         msg.Header = header

@@ -47,10 +47,10 @@ class FileReceiveHandler(socketserver.BaseRequestHandler):
         rspMsg.Header.MSGID = msgId
         msgId = msgId + 1
         rspMsg.Header.MSGTYPE = message.REP_FILE_SEND
-        resMsg.Header.BODYLEN = rspMsg.Body.GetSize()
-        resMsg.Header.FRAGMENTED = message.NOT_FRAGMENTED
-        resMsg.Header.LASTMSG = message.LASTMSG
-        resMsg.Header.SEQ = 0
+        rspMsg.Header.BODYLEN = rspMsg.Body.GetSize()
+        rspMsg.Header.FRAGMENTED = message.NOT_FRAGMENTED
+        rspMsg.Header.LASTMSG = message.LASTMSG
+        rspMsg.Header.SEQ = 0
         
         if answer.strip() == "yes":
             MessageUtil.send(client, rspMsg)
