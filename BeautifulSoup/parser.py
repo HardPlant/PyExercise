@@ -4,8 +4,8 @@ import json
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-req = requests.get('https://beomi.github.io/beomi.github.io_old/')
+s = requests.Session()
+req = requests.get('https://www.clien.net/service/')
 
 html = req.text
 header = req.headers
