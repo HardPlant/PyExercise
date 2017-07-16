@@ -103,3 +103,5 @@ ENV/
 #vscode
 .vs
 .vscode 
+
+.exe
