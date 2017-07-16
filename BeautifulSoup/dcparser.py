@@ -22,12 +22,28 @@ with requests.Session() as s:
         csrf = tag
         
     assert(csrf != '')
-    print("csrf:")
-    print(csrf)
-    print(type(csrf))
     
     LOGIN_INFO = {**LOGIN_INFO, **{str(csrf) : csrf['value']}}
     #python3 dict concat + {**dict1, **dict2}
 
     login_req = s.post('https://dcid.dcinside.com/join/member_check.php', data=LOGIN_INFO)
-    print(login_req.status_code)
+    if login_req.status_code != 200:
+        raise Exception('Login failed!')
+    
+    mainpage = s.get('http://gall.dcinside.com/board/lists/?id=idolmaster')
+    soup = bs(mainpage.text, 'html.parser')
+
+    print(soup)
+print("next")
+with requests.Session() as s:
+    mainpage = s.get('http://gall.dcinside.com/board/lists/?id=idolmaster')
+    soup = bs(mainpage.text, 'html.parser')
+
+    print(soup)
+
+print("next2")
+with requests.Session() as s:
+    mainpage = s.get('http://www.dcinside.com/')
+    soup = bs(mainpage.text, 'html.parser')
+
+    print(soup)
