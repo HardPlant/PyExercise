@@ -1,6 +1,9 @@
 from selenium import webdriver
+import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    with open(os.path.join(BASE_DIR, 'result.json'), 'w+') as json_file:
-        json.dump(data,json_file)
-driver = webdriver.Chrome('')
+
+driver = webdriver.Chrome(os.path.join(BASE_DIR, 'chromedriver.exe'))
+
+#url에 접근한다.
+driver.get('https://google.com')
